@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Predictive Maintenance for Machinery</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- Chart.js CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <h1>Predictive Maintenance for Machinery</h1>
+    <div class="container">
+        <!-- Input fields for features -->
+        <div class="input-group">
+            <label for="time">Time:</label>
+            <input type="number" id="time" placeholder="Enter time">
+        </div>
+        <div class="input-group">
+            <label for="pwm">PWM:</label>
+            <input type="number" id="pwm" placeholder="Enter PWM">
+        </div>
+        <div class="input-group">
+            <label for="rpm">RPM:</label>
+            <input type="number" id="rpm" placeholder="Enter RPM">
+        </div>
+        <div class="input-group">
+            <label for="current_mA">Current (mA):</label>
+            <input type="number" id="current_mA" placeholder="Enter current in mA">
+        </div>
+        <div class="input-group">
+            <label for="power_mW">Power (mW):</label>
+            <input type="number" id="power_mW" placeholder="Enter power in mW">
+        </div>
+        <div class="input-group">
+            <label for="bus_v">Bus Voltage (V):</label>
+            <input type="number" id="bus_v" placeholder="Enter bus voltage in V">
+        </div>
+        <div class="input-group">
+            <label for="shunt_mV">Shunt Voltage (mV):</label>
+            <input type="number" id="shunt_mV" placeholder="Enter shunt voltage in mV">
+        </div>
+        <div class="input-group">
+            <label for="load_v">Load Voltage (V):</label>
+            <input type="number" id="load_v" placeholder="Enter load voltage in V">
+        </div>
+        <div class="input-group">
+            <label for="x_axis_vib">X-Axis Vibration:</label>
+            <input type="number" id="x_axis_vib" placeholder="Enter X-axis vibration">
+        </div>
+        <div class="input-group">
+            <label for="y_axis_vib">Y-Axis Vibration:</label>
+            <input type="number" id="y_axis_vib" placeholder="Enter Y-axis vibration">
+        </div>
+        <div class="input-group">
+            <label for="z_axis_vib">Z-Axis Vibration:</label>
+            <input type="number" id="z_axis_vib" placeholder="Enter Z-axis vibration">
+        </div>
+        <div class="input-group">
+            <label for="magnitude">Vibration Magnitude:</label>
+            <input type="number" id="magnitude" placeholder="Enter vibration magnitude">
+        </div>
+        <div class="input-group">
+            <label for="vib_intensity">Vibration Intensity:</label>
+            <input type="number" id="vib_intensity" placeholder="Enter vibration intensity">
+        </div>
+
+        <div class="input-group">
+            <button onclick="checkFaults()">Check for Faults</button>
+        </div>
+
+        <!-- Result Section -->
+        <div id="result"></div>
+        
+        <!-- Graph Section -->
+        <div id="graph-section">
+            <h3>Feature Values Visualization</h3>
+            <canvas id="dataGraph" width="400" height="200"></canvas>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
