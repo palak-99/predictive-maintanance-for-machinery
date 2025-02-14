@@ -1,11 +1,8 @@
-// Initialize chart.js context for the graph
 let ctx = document.getElementById('dataGraph').getContext('2d');
 
-// Arrays to hold time and feature data
-let timeData = [];  // To store time values
-let featureData = {};  // To store data for each feature
+let timeData = [];  
+let featureData = {}; 
 
-// Initialize an empty array for each feature to store data over time
 const features = [
     "time", "pwm", "rpm", "current_mA", "power_mW", "bus_v",
     "shunt_mV", "load_v", "x_axis_vib", "y_axis_vib", "z_axis_vib", 
@@ -52,25 +49,20 @@ function checkFaults() {
     let faults = [];
     let dataValues = [];
 
-    // Check values and store data
     for (const feature in inputs) {
         const value = parseFloat(inputs[feature]);
         const [min, max] = limits[feature];
         if (value < min || value > max) {
             faults.push(`${feature} is out of range! (Value: ${value}, Expected: ${min} to ${max})`);
         }
-        dataValues.push(value);  // Collect data for graph
-
-        // Store feature data over time
+        dataValues.push(value);  
         if (feature !== "time") {
             featureData[feature].push(value);
         }
     }
 
-    // Add the time to the timeData array
     timeData.push(parseFloat(inputs.time));
 
-    // Update the result section
     const resultDiv = document.getElementById('result');
     if (faults.length > 0) {
         resultDiv.innerHTML = `<div class="fault"><h3>Faults Detected:</h3><ul><li>${faults.join('</li><li>')}</li></ul></div>`;
@@ -78,15 +70,12 @@ function checkFaults() {
         resultDiv.innerHTML = '<div class="no-fault"><h3>No faults detected. All values are within acceptable limits.</h3></div>';
     }
 
-    // Draw the graph with updated time vs features data
     drawGraph(timeData, featureData);
 }
 
-// Function to draw the line graph using Chart.js
 function drawGraph(timeData, featureData) {
     const datasets = [];
 
-    // Prepare datasets for each feature
     for (const feature in featureData) {
         if (featureData[feature].length > 0) {
             datasets.push({
@@ -94,21 +83,21 @@ function drawGraph(timeData, featureData) {
                 data: featureData[feature],
                 borderColor: getRandomColor(),
                 backgroundColor: getRandomColor(0.2),
-                fill: false,  // Do not fill the area under the curve
-                tension: 0.2,  // Smoother lines with a slight curve
-                pointRadius: 3,  // Adjust point radius for smoother curves
+                fill: false, 
+                tension: 0.2,  
+                pointRadius: 3,  
                 borderWidth: 2
             });
         }
     }
 
     const data = {
-        labels: timeData,  // Set time data as labels
+        labels: timeData,  
         datasets: datasets
     };
 
     const config = {
-        type: 'line',  // Line graph
+        type: 'line', 
         data: data,
         options: {
             responsive: true,
@@ -142,7 +131,6 @@ function drawGraph(timeData, featureData) {
         }
     };
 
-    // Create or update the graph
     if (window.myChart) {
         window.myChart.data.datasets = datasets;
         window.myChart.update();
@@ -151,7 +139,6 @@ function drawGraph(timeData, featureData) {
     }
 }
 
-// Function to generate random colors for each feature line
 function getRandomColor(opacity = 1) {
     const r = Math.floor(Math.random() * 256);
     const g = Math.floor(Math.random() * 256);
